@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 4.7
@@ -10,3 +11,9 @@
 '''
 
 mac = 'AAAA:BBBB:CCCC'
+
+mac = mac.split(':')
+
+print('{:016b}'.format(int(mac[0],16)) + \
+      '{:016b}'.format(int(mac[1],16)) + \
+      '{:016b}'.format(int(mac[2],16)))
