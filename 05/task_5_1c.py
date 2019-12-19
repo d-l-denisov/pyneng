@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 5.1c
@@ -48,3 +49,12 @@ london_co = {
         'routing': True
     }
 }
+
+
+d_key = input('Enter device name: ')
+
+print('Enter property name (', ', '.join(london_co[d_key].keys()), '): ', sep = '', end = '')
+prprty = input()
+print(london_co[d_key].get(prprty, 'ERROR: property not found'))
+
+
