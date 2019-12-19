@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 5.3
@@ -55,3 +56,20 @@ trunk_template = [
     'switchport trunk encapsulation dot1q', 'switchport mode trunk',
     'switchport trunk allowed vlan {}'
 ]
+
+
+###########################################################
+
+d_config = {
+    'access': access_template,
+    'trunk': trunk_template
+}
+
+intf_mode = input('Enter interface mode (access/trunk): ')
+intf = input('Enter interface type and number (e.g. Gi0/1): ')
+vlan = input('Enter vlan(s): ')
+
+print('\ninterface', intf)
+
+print('\n'.join(d_config[intf_mode]).format(vlan), '\n')
+
