@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 5.1a
@@ -44,3 +45,8 @@ london_co = {
         'routing': True
     }
 }
+
+d_key = input('Enter device name: ')
+prprty = input('Enter property name: ')
+print(london_co[d_key][prprty])
+
