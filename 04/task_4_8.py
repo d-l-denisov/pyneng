@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 4.8
@@ -19,3 +20,15 @@
 '''
 
 ip = '192.168.3.1'
+
+ip = ip.split('.')
+
+print('{:10}'.format(ip[0]),
+      '{:10}'.format(ip[1]),
+      '{:10}'.format(ip[2]),
+      '{:10}'.format(ip[3]), sep='')
+
+print('{:08b}'.format(int(ip[0])), '  ',
+      '{:08b}'.format(int(ip[1])), '  ',
+      '{:08b}'.format(int(ip[2])), '  ',
+      '{:08b}'.format(int(ip[3])), sep='')
