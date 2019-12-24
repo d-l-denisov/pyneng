@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 6.3
@@ -55,3 +56,21 @@ for intf, vlan in access.items():
             print(' {} {}'.format(command, vlan))
         else:
             print(' {}'.format(command))
+
+
+#================================================
+
+
+for intf, cfg in trunk.items():
+    print('interface FastEthernet' + intf)
+    for command in trunk_template:
+        print(' {}'.format(command), end = '')
+        if command.endswith('allowed vlan'):
+            if cfg[0] == 'add':
+                print(' add {}'.format(','.join(cfg[1:])), end = '')
+            elif cfg[0] == 'del':
+                print(' remove {}'.format(','.join(cfg[1:])), end = '')
+            elif cfg[0] == 'only':
+                print(' {}'.format(','.join(cfg[1:])), end = '')
+        print('')
+                
