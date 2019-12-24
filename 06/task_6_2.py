@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 6.2
@@ -14,3 +15,22 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+ip = input('Enter IP address: ')
+
+ip = ip.split('.')
+
+for indx in range(4):
+    ip[indx] = int(ip[indx])
+
+if 1 <= ip[0] <= 223:
+    print('unicast')
+elif 224 <= ip[0] <= 239:
+    print('multicast')
+elif ip.count(255) == 4:
+    print('local broadcast')
+elif ip.count(0) == 4:
+    print('unassigned')
+else:
+    print('unused')
+    
