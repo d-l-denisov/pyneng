@@ -22,8 +22,6 @@ while True:
                     int('nan')
             break
 
-    except IndexError:
-        pass
     except ValueError:
         pass
     print('Wrong IP address')
