@@ -18,31 +18,30 @@
 
 
 
-while True:
-    ip = input('Enter IP address: ')
-    try:
-        ip = ip.split('.')
-        if len(ip) == 4:
-            for indx in range(4):
-                ip[indx] = int(ip[indx])
-                if ip[indx] < 0 or ip[indx] > 255:
-                    int('nan')
-            break
-    
-    except IndexError:
-        pass
-    except ValueError:
-        pass
-    print('Wrong IP address')
+ip = input('Enter IP address: ')
+ip_ok = True
+try:
+    ip = ip.split('.')
+    if len(ip) == 4:
+        for indx in range(4):
+            ip[indx] = int(ip[indx])
+            if ip[indx] < 0 or ip[indx] > 255:
+                ip_ok = False
+    else:
+        ip_ok = False
+except (IndexError, ValueError):
+    ip_ok = false
 
-if 1 <= ip[0] <= 223:
-    print('unicast')
-elif 224 <= ip[0] <= 239:
-    print('multicast')
-elif ip.count(255) == 4:
-    print('local broadcast')
-elif ip.count(0) == 4:
-    print('unassigned')
+if ip_ok:
+    if 1 <= ip[0] <= 223:
+        print('unicast')
+    elif 224 <= ip[0] <= 239:
+        print('multicast')
+    elif ip.count(255) == 4:
+        print('local broadcast')
+    elif ip.count(0) == 4:
+        print('unassigned')
+    else:
+        print('unused')
 else:
-    print('unused')
-
+    print('Wrong IP addess')
