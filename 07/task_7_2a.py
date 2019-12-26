@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 7.2a
@@ -13,3 +14,16 @@
 '''
 
 ignore = ['duplex', 'alias', 'Current configuration']
+
+from sys import argv
+
+filename = argv[1]
+
+with open(filename) as f:
+    for line in f:
+        if not line.startswith('!'):
+            set intersection!!!
+            for wrd in ignore:
+                if line.find(wrd)< 0:
+                    print(line.rstrip('\n'))
+                    break
