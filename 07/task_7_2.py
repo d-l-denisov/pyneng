@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 7.2
@@ -12,3 +13,13 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+from sys import argv
+
+filename = argv[1]
+
+with open(filename) as f:
+    for line in f:
+        if not line.startswith('!'):
+            print(line.rstrip('\n'))
+
