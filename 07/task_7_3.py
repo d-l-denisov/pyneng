@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 7.3
@@ -17,3 +18,15 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+
+
+with open('./CAM_table.txt') as f:
+    for line in f:
+        #print(line)
+        line = line.split()
+        if line and line[0].isdigit():
+            print('{:9}'.format(line[0]),
+                  '{:17}'.format(line[1]),
+                  '{:5}'.format(line[3]),
+                  sep = ''
+                 )
