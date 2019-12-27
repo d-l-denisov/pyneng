@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 7.2c
@@ -17,3 +18,14 @@
 '''
 
 ignore = ['duplex', 'alias', 'Current configuration']
+
+from sys import argv
+
+f_in = argv[1]
+f_out = argv[2]
+
+with open(f_in) as src_f, open(f_out, 'w') as dst_f:
+    for line in src_f:
+        if not set(line.split()).intersection(set(ignore)):
+            dst_f.write(line)
+
