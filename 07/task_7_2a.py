@@ -22,8 +22,5 @@ filename = argv[1]
 with open(filename) as f:
     for line in f:
         if not line.startswith('!'):
-            set intersection!!!
-            for wrd in ignore:
-                if line.find(wrd)< 0:
-                    print(line.rstrip('\n'))
-                    break
+            if not set(line.split()).intersection(set(ignore)):
+                print(line.rstrip('\n'))
