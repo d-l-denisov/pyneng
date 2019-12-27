@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 7.3a
@@ -22,3 +23,20 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+
+with open('./CAM_table.txt') as f:
+    result = []
+    for line in f:
+        line = line.split()
+        if line and line[0].isdigit():
+            line[0] = int(line[0])
+            result.append(line)
+
+    result.sort()
+    for line in result:
+        print('{:<9}'.format(line[0]),
+              '{:17}'.format(line[1]),
+              '{:5}'.format(line[3]),
+              sep = ''
+             )
+
