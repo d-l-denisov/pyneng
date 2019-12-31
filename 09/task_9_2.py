@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 9.2
@@ -44,4 +45,24 @@ trunk_config = {
     'FastEthernet0/2': [11, 30],
     'FastEthernet0/4': [17]
 }
+
+def generate_trunk_config(intf_vlan_mapping, trunk_template):
+    '''
+    Function returns config for trunk port(s) based on
+        - received list of interfaces (intf_vlan_mapping) with list of vlans
+        - reseved configuration template (trunk_template)
+    '''
+
+    result = []
+    for intf, vlans in intf_vlan_mapping.items():
+        result.append(f'interface {intf}')
+        for cmd in trunk_template:
+            if cmd == 'switchport trunk allowed vlan':
+                cmd += f" {','.join(str(vlan) for vlan in vlans)}"
+            result.append(cmd)
+    return result
+
+
+for e in generate_trunk_config(trunk_config, trunk_mode_template):
+    print(e)
 
