@@ -1,12 +1,14 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 '''
 Задание 9.2a
 
 Сделать копию функции generate_trunk_config из задания 9.2
 
 Изменить функцию таким образом, чтобы она возвращала не список команд, а словарь:
-    - ключи: имена интерфейсов, вида 'FastEthernet0/1'
-    - значения: список команд, который надо выполнить на этом интерфейсе
+- ключи: имена интерфейсов, вида 'FastEthernet0/1'
+- значения: список команд, который надо выполнить на этом интерфейсе
 
 Проверить работу функции на примере словаря trunk_config и шаблона trunk_mode_template.
 
@@ -16,13 +18,36 @@
 
 
 trunk_mode_template = [
-    'switchport mode trunk', 'switchport trunk native vlan 999',
-    'switchport trunk allowed vlan'
-]
+                       'switchport mode trunk',
+                       'switchport trunk native vlan 999',
+                       'switchport trunk allowed vlan'
+                      ]
 
 trunk_config = {
-    'FastEthernet0/1': [10, 20, 30],
-    'FastEthernet0/2': [11, 30],
-    'FastEthernet0/4': [17]
-}
+                'FastEthernet0/1': [10, 20, 30],
+                'FastEthernet0/2': [11, 30],
+                'FastEthernet0/4': [17]
+               }
+
+
+
+
+def generate_trunk_config(intf_vlan_mapping, trunk_template):
+    '''
+    Function returns config for trunk port(s) based on
+        - received list of interfaces (intf_vlan_mapping) with list of vlans
+        - reseved configuration template (trunk_template)
+    '''
+
+    result = {}
+    for intf, vlans in intf_vlan_mapping.items():
+        result[f'interface {intf}'] = []
+        for cmd in trunk_template:
+            if cmd == 'switchport trunk allowed vlan':
+                cmd += f" {','.join(str(vlan) for vlan in vlans)}"
+            result[f'interface {intf}'].append(cmd)
+    return result
+
+
+print(generate_trunk_config(trunk_config, trunk_mode_template))
 
