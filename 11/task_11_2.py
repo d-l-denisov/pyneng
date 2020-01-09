@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 11.2
@@ -40,4 +41,6 @@ Cгенерировать топологию, которая соответст�
 > pip install graphviz
 
 '''
+
+def create_network_map(filenames):
 
