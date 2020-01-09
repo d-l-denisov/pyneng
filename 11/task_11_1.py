@@ -60,8 +60,9 @@ def parse_cdp_neighbors(command_output):
 from sys import argv
 
 
-with open(argv[1]) as f:
-    cdp_output = f.read()
+if __name__ == "__main__":
+    with open(argv[1]) as f:
+        cdp_output = f.read()
     
-    print(parse_cdp_neighbors(cdp_output))
+        print(parse_cdp_neighbors(cdp_output))
 
