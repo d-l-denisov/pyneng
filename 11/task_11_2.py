@@ -42,5 +42,29 @@ Cгенерировать топологию, которая соответст�
 
 '''
 
+
+from sys import argv
+
+from task_11_1 import parse_cdp_neighbors
+
+
 def create_network_map(filenames):
+    """
+    Function receives list of filenames. Each filename contains output of show cdp neighbors
+    command. Function returns dictionary of connections between devices (no duplicates allowed). 
+    """
+    d_res = {}
+    for filename in filenames:
+        with open(filename) as f:
+            cdp_output = f.read()
+            print(d_res)
+            d_res.update({nk:nv for nk, nv in parse_cdp_neighbors(cdp_output).items() \
+                                if nv not in d_res.keys()})
+            print(parse_cdp_neighbors(cdp_output))
+            print(d_res)
+            print('='*30)
+       
+
+if __name__ == '__main__':
+    create_network_map(argv[1:])
 
