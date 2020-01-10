@@ -46,7 +46,7 @@ Cгенерировать топологию, которая соответст�
 from sys import argv
 
 from task_11_1 import parse_cdp_neighbors
-
+from draw_network_graph import draw_topology
 
 def create_network_map(filenames):
     """
@@ -57,14 +57,11 @@ def create_network_map(filenames):
     for filename in filenames:
         with open(filename) as f:
             cdp_output = f.read()
-            print(d_res)
             d_res.update({nk:nv for nk, nv in parse_cdp_neighbors(cdp_output).items() \
                                 if nv not in d_res.keys()})
-            print(parse_cdp_neighbors(cdp_output))
-            print(d_res)
-            print('='*30)
-       
+    return d_res 
+
 
 if __name__ == '__main__':
-    create_network_map(argv[1:])
+    draw_topology(create_network_map(argv[1:]), 'task_11_2_topology_done')
 
