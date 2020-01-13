@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 12.2
@@ -31,3 +32,22 @@
 
 '''
 
+import ipaddress
+
+def convert_ranges_to_ip_list(ip_list):
+    l_res = []
+    for ip in ip_list:
+        if '-' in ip:
+            ip_start, ip_end = ip.split('-')
+            ip_start = int(ipaddress.ip_address(ip_start))
+            ip_end = int(ip_end.split('.')[-1])
+            print(ip_end)
+            for exp_ip in range (ip_start, ip_start + ip_end):
+                 l_res.append(str(ipaddress.ip_address(exp_ip)))
+        else:
+            l_res.append(str(ipaddress.ip_address(ip)))
+    return l_res
+
+
+if __name__ == '__main__':
+    print(convert_ranges_to_ip_list(['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']))
