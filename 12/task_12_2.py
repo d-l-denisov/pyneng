@@ -39,10 +39,12 @@ def convert_ranges_to_ip_list(ip_list):
     for ip in ip_list:
         if '-' in ip:
             ip_start, ip_end = ip.split('-')
+            if '.' not in ip_end:
+                ip_end = '.'.join(ip_start.split('.')[:3]) + '.' + ip_end 
+            print(ip_start, ip_end)
             ip_start = int(ipaddress.ip_address(ip_start))
-            ip_end = int(ip_end.split('.')[-1])
-            print(ip_end)
-            for exp_ip in range (ip_start, ip_start + ip_end):
+            ip_end = int(ipaddress.ip_address(ip_end))
+            for exp_ip in range (ip_start, ip_end + 1):
                  l_res.append(str(ipaddress.ip_address(exp_ip)))
         else:
             l_res.append(str(ipaddress.ip_address(ip)))
