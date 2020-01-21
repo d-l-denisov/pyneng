@@ -35,7 +35,7 @@ def get_ints_without_description(filename):
                 r'(?P<desc> description .+?\n)?' + \
                 r'.*?\n!'
         match = re.finditer(regex, cfg, re.DOTALL)
-    return [m.group('intf') for m in match if m.lastgroup == 'desc']  
+    return [m.group('intf') for m in match if m.lastgroup == 'intf']  
 
 if __name__ == '__main__':
     pprint(get_ints_without_description(argv[1]))
