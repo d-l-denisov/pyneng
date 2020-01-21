@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.4
@@ -22,4 +23,20 @@ interface Loopback0
 
 Проверить работу функции на примере файла config_r1.txt.
 '''
+
+from sys import argv
+import re
+from pprint import pprint
+
+def get_ints_without_description(filename):
+    with open(filename) as f:
+        cfg = f.read()
+        regex = r'\ninterface (?P<intf>\S+)\n' + \
+                r'(?P<desc> description .+?\n)?' + \
+                r'.*?\n!'
+        match = re.finditer(regex, cfg, re.DOTALL)
+    return [m.group('intf') for m in match if m.lastgroup == 'desc']  
+
+if __name__ == '__main__':
+    pprint(get_ints_without_description(argv[1]))
 
