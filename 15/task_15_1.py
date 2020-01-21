@@ -29,7 +29,7 @@ from sys import argv
 from pprint import pprint
 
 
-def get_ip_from_cfg(filename):
+def get_ip_from_cfg_v1(filename):
     result = []
     with open(filename) as f:
         for line in f:
@@ -38,5 +38,14 @@ def get_ip_from_cfg(filename):
                 result.append(match.groups())
     return result
 
+def get_ip_from_cfg_v2(filename):
+    result = []
+    with open(filename) as f:
+        lines = f.read()
+        match = re.finditer(r'ip address (\S+) (\S+)', lines)
+        result = [(m.groups()) for m in match]
+    return result
+
+
 if __name__ == "__main__":
-    pprint(get_ip_from_cfg(argv[1]))
+    pprint(get_ip_from_cfg_v2(argv[1]))
