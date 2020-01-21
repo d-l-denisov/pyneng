@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.3
@@ -32,3 +33,24 @@ object network LOCAL_10.1.9.5
 Во всех правилах для ASA интерфейсы будут одинаковыми (inside,outside).
 '''
 
+from sys import argv
+import re
+
+
+def convert_ios_nat_to_asa(filein, fileout):
+    with open(filein) as srcfile, open(fileout, 'w') as dstfile:
+        for line in srcfile:
+            match = re.match(r'ip nat inside.+ tcp (?P<in_host>\S+)'
+                             r' (?P<in_port>\d+) .+'
+                             r' (?P<out_port>\d+)', line)
+            if match:
+                nat_rule = f"object network LOCAL_{match.group('in_host')}\n" + \
+                           f" host {match.group('in_host')}\n" + \
+                           f" nat (inside,outside) static interface service tcp {match.group('in_port')} " + \
+                           f"{match.group('out_port')} \n"
+                dstfile.write(nat_rule)
+
+
+if __name__ == '__main__':
+    convert_ios_nat_to_asa(argv[1], argv[2])
+    print('Done.')
