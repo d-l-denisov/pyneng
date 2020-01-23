@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.1b
@@ -26,3 +27,25 @@ Ethernet0/1 соответствует список из двух кортеже
 
 '''
 
+
+
+import re
+from sys import argv
+from pprint import pprint
+
+
+def get_ip_from_cfg(filename):
+    with open(filename) as f:
+        lines = f.read()
+    regex = r'\ninterface (?P<intf>\S+).*?(?:\n ip address )?.*?\n!'
+    match = re.finditer(regex, lines, re.DOTALL)
+    #print([m.group() for m in match])
+    result = {}
+    for m in match:
+        ip_mask = re.finditer(r'\n ip address (?P<ip_mask>\S+ \S+)', m.group(), re.DOTALL)
+        result[m.group('intf')] = [n.group('ip_mask').split() for n in ip_mask if n]
+    return result
+
+
+if __name__ == "__main__":
+    pprint(get_ip_from_cfg(argv[1]))
