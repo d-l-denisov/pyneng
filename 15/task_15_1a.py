@@ -1,3 +1,4 @@
+#!/usr/bin/env python 
 # -*- coding: utf-8 -*-
 '''
 Задание 15.1a
@@ -22,3 +23,21 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+
+
+import re
+from sys import argv
+from pprint import pprint
+
+
+def get_ip_from_cfg(filename):
+    with open(filename) as f:
+        line = f.read()
+    regex = r'interface (?P<intf>\S+)\n.+?ip address (?P<ip_addr>\S+) (?P<ip_mask>\S+)\n'
+    match = re.finditer(regex, line, re.DOTALL)
+    return {m.group('intf'): m.group('ip_addr', 'ip_mask') for m in match}
+
+
+
+if __name__ == "__main__":
+    pprint(get_ip_from_cfg(argv[1]))
