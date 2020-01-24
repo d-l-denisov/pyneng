@@ -47,16 +47,8 @@ xconnect logging redundancy
 !
 !
 !
-interface Ethernet0/0
- description To PE_r3 Ethernet0/0
- bandwidth 100000
- ip address 10.0.23.2 255.255.255.0
- mpls traffic-eng tunnels
- ip rsvp bandwidth 100000 10000
-!
 interface Loopback0
  ip address 10.2.2.2 255.255.255.255
- ip address 10.2.2.1 255.255.255.255 secondary
 !
 interface Tunnel0
  ip unnumbered Loopback0
@@ -66,6 +58,13 @@ interface Tunnel0
  tunnel mpls traffic-eng bandwidth 5000
  tunnel mpls traffic-eng path-option 10 dynamic
  no routing dynamic
+!
+interface Ethernet0/0
+ description To PE_r3 Ethernet0/0
+ bandwidth 100000
+ ip address 10.0.23.2 255.255.255.0
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 100000 10000
 !
 interface Ethernet0/1
  ip address 10.255.2.2 255.255.255.0

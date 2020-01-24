@@ -37,13 +37,17 @@ from pprint import pprint
 def get_ip_from_cfg(filename):
     with open(filename) as f:
         lines = f.read()
-    regex = r'\ninterface (?P<intf>\S+).*?(?:\n ip address )?.*?\n!'
+    regex = r'\ninterface (?P<intf>\S+).*?\n!'
     match = re.finditer(regex, lines, re.DOTALL)
-    #print([m.group() for m in match])
     result = {}
     for m in match:
-        ip_mask = re.finditer(r'\n ip address (?P<ip_mask>\S+ \S+)', m.group(), re.DOTALL)
-        result[m.group('intf')] = [n.group('ip_mask').split() for n in ip_mask if n]
+        tmp = []
+        for n in m.group().split('\n'):
+            ip_mask = re.match(r' ip address (\S+) (\S+)', n)
+            if ip_mask:
+                tmp.append(ip_mask.groups())
+        if tmp:
+            result[m.group('intf')] = tmp
     return result
 
 
