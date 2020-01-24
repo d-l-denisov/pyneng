@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.2a
@@ -27,3 +28,17 @@
 '''
 
 headers = ['interface', 'address', 'status', 'protocol']
+
+
+from sys import argv
+import re
+from pprint import pprint
+
+from task_15_2 import parse_sh_ip_int_br
+
+
+def convert_to_dict(fieldnames, values):
+    return [dict(zip(fieldnames,v)) for v in values]
+
+if __name__ == '__main__':
+    pprint(convert_to_dict(headers, parse_sh_ip_int_br(argv[1])))
