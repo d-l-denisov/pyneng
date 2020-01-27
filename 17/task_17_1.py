@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 17.1
@@ -45,3 +46,21 @@ sh_version_files = glob.glob('sh_vers*')
 #print(sh_version_files)
 
 headers = ['hostname', 'ios', 'image', 'uptime']
+
+
+import re
+
+
+def parsh_sh_version(sh_ver_output):
+    return (ios, image, uptime)
+
+
+def write_inventory_to_cvs(data_filenames, csv_filename):
+    pass
+    return None
+
+
+
+
+if __name__ == '__main__':
+    pass
