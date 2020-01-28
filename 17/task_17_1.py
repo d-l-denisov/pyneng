@@ -51,8 +51,12 @@ headers = ['hostname', 'ios', 'image', 'uptime']
 import re
 
 
-def parsh_sh_version(sh_ver_output):
-    return (ios, image, uptime)
+def parse_sh_version(sh_ver_output):
+    regex = (r'Cisco IOS Software.+? Version (?P<ios>\S+?), .+?' 
+             r'uptime is (?P<uptime>.+?)\n.+?'
+             r'\System image file is "(?P<image>\S+)"')
+    match = re.search(regex, sh_ver_output, re.DOTALL)
+    return (match.group('ios','image','uptime')) 
 
 
 def write_inventory_to_cvs(data_filenames, csv_filename):
@@ -61,6 +65,8 @@ def write_inventory_to_cvs(data_filenames, csv_filename):
 
 
 
-
 if __name__ == '__main__':
-    pass
+    for filename in sh_version_files:
+        with open(filename) as f:
+            lines = f.read()
+            print(parse_sh_version(lines))
