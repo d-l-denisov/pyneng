@@ -54,19 +54,21 @@ import re
 def parse_sh_version(sh_ver_output):
     regex = (r'Cisco IOS Software.+? Version (?P<ios>\S+?), .+?' 
              r'uptime is (?P<uptime>.+?)\n.+?'
-             r'\System image file is "(?P<image>\S+)"')
+             r'\nSystem image file is "(?P<image>\S+)"')
     match = re.search(regex, sh_ver_output, re.DOTALL)
     return (match.group('ios','image','uptime')) 
 
 
-def write_inventory_to_cvs(data_filenames, csv_filename):
-    pass
+def write_inventory_to_csv(data_filenames, csv_filename):
+    for filename in data_filenames:
+        with open(filename) as f:
+            hostname = re.split(r'[_|.]', filename)[-2]
+            print(hostname)
+            lines = f.read()
+            print(parse_sh_version(lines))
     return None
 
 
 
 if __name__ == '__main__':
-    for filename in sh_version_files:
-        with open(filename) as f:
-            lines = f.read()
-            print(parse_sh_version(lines))
+    write_inventory_to_csv(sh_version_files, 'routers_inventory.csv')
