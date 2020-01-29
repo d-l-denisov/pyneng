@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 17.2
@@ -24,3 +25,22 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 Проверить работу функции на содержимом файла sh_cdp_n_sw1.txt
 '''
+
+
+from sys import argv
+import re
+
+
+def parse_sh_cdp_neighbors(lines):
+    hostname = re.match(r'(?P<hostname>\S+?)[>#]\s*s\w*\s+cdp\s+n\w*\n', lines).group('hostname')
+    for line in lines.split('\n'):
+        fields = re.split('\s{2,}', line)
+        if fields:
+            print(fields)
+    return None
+
+
+if __name__ == '__main__':
+    with open(argv[1]) as f:
+        lines = f.read()
+        print(parse_sh_cdp_neighbors(lines))
