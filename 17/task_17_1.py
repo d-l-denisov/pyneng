@@ -49,6 +49,7 @@ headers = ['hostname', 'ios', 'image', 'uptime']
 
 
 import re
+import csv
 
 
 def parse_sh_version(sh_ver_output):
@@ -60,12 +61,17 @@ def parse_sh_version(sh_ver_output):
 
 
 def write_inventory_to_csv(data_filenames, csv_filename):
-    for filename in data_filenames:
-        with open(filename) as f:
-            hostname = re.split(r'[_|.]', filename)[-2]
-            print(hostname)
-            lines = f.read()
-            print(parse_sh_version(lines))
+    with open(csv_filename, 'w') as f_out:
+        writer = csv.writer(f_out)
+        writer.writerow(headers)
+        for filename in data_filenames:
+            with open(filename) as f_in:
+                hostname = re.split(r'[_|.]', filename)[-2]
+                #print(hostname)
+                lines = f_in.read()
+                writer.writerow([hostname, ] + list(parse_sh_version(lines)))
+                #print(parse_sh_version(lines))
+
     return None
 
 
