@@ -37,6 +37,7 @@
 
 from sys import argv
 from pprint import pprint
+import yaml
 
 from task_17_2 import parse_sh_cdp_neighbors
 
@@ -47,8 +48,12 @@ def generate_topology_from_cdp(list_of_files, save_to_filename = None):
         with open(filename) as f:
             lines = f.read()
         d.update(parse_sh_cdp_neighbors(lines))
+      
+    if save_to_filename:
+        with open(save_to_filename, 'w') as f:
+            yaml.dump(d, f)
     return d
 
 
 if __name__ == '__main__':
-    pprint(generate_topology_from_cdp(argv[1:]))
+    pprint(generate_topology_from_cdp(argv[1:], 'topology.yaml'))
