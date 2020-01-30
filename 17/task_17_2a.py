@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 17.2a
@@ -32,3 +33,22 @@
 Проверить работу параметра save_to_filename и записать итоговый словарь в файл topology.yaml.
 
 '''
+
+
+from sys import argv
+from pprint import pprint
+
+from task_17_2 import parse_sh_cdp_neighbors
+
+
+def generate_topology_from_cdp(list_of_files, save_to_filename = None):
+    d = {}
+    for filename in list_of_files:
+        with open(filename) as f:
+            lines = f.read()
+        d.update(parse_sh_cdp_neighbors(lines))
+    return d
+
+
+if __name__ == '__main__':
+    pprint(generate_topology_from_cdp(argv[1:]))
