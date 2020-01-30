@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 17.2b
@@ -31,3 +32,31 @@
 > pip install graphviz
 
 '''
+
+
+from sys import argv
+from pprint import pprint
+import yaml
+
+from draw_network_graph import draw_topology
+
+
+def transform_topology(yaml_file):
+    with open(yaml_file) as f:
+        data = yaml.load(f) 
+    #pprint(data)
+    result = {}
+    for d in data:
+        for e in data[d]:
+            tmp = tuple(data[d][e].items())[0]
+            if tmp not in tuple(result.keys()):
+                result[(d, e)] = tmp
+
+        #result[(d, e)] = tuple(data[d][e].items())[0] for e in data[d] \
+        #                 if tuple(data[d][e].items())[0] not in tuple(result.keys())}
+    return result
+
+
+if __name__ == '__main__':
+    pprint(transform_topology(argv[1]))
+    #draw_topology(transform_topology(argv[1]), 'task_17_2b_topology_done')
