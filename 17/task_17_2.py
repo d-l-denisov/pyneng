@@ -33,7 +33,7 @@ from pprint import pprint
 
 
 def parse_sh_cdp_neighbors(lines):
-    hostname = re.match(r'(?P<hostname>\S+?)[>#]\s*s\w*\s+cdp\s+n\w*\n', lines).group('hostname')
+    hostname = re.match(r'\s*(?P<hostname>\S+?)[>#]\s*s\w*\s+cdp\s+n\w*\n', lines).group('hostname')
     
     # Selecting CDP table content after table headers
     lines = re.search(r'\nDevice ID\s+Local Intrfce.+?\n(.+)', lines, re.DOTALL).group(1)
