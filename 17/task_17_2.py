@@ -29,18 +29,22 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 from sys import argv
 import re
+from pprint import pprint
 
 
 def parse_sh_cdp_neighbors(lines):
     hostname = re.match(r'(?P<hostname>\S+?)[>#]\s*s\w*\s+cdp\s+n\w*\n', lines).group('hostname')
-    for line in lines.split('\n'):
-        fields = re.split('\s{2,}', line)
-        if fields:
-            print(fields)
-    return None
+    
+    # Selecting CDP table content after table headers
+    lines = re.search(r'\nDevice ID\s+Local Intrfce.+?\n(.+)', lines, re.DOTALL).group(1)
+    match = re.finditer(r'(?P<rem_dev>\S+)\s+'
+                        r'(?P<loc_intf>\S+ \S+)\s+'
+                        r'.+?'
+                        r'(?P<rem_intf>\S+ \S+)\n', lines, re.DOTALL)
+    return {hostname: {m.group('loc_intf'): {m.group('rem_dev'): m.group('rem_intf')} for m in match}}
 
 
 if __name__ == '__main__':
     with open(argv[1]) as f:
         lines = f.read()
-        print(parse_sh_cdp_neighbors(lines))
+        pprint(parse_sh_cdp_neighbors(lines))
