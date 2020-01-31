@@ -55,5 +55,4 @@ def transform_topology(yaml_file):
 
 
 if __name__ == '__main__':
-    pprint(transform_topology(argv[1]))
-    #draw_topology(transform_topology(argv[1]), 'task_17_2b_topology_done')
+    draw_topology(transform_topology(argv[1]), 'task_17_2b_topology_done')
