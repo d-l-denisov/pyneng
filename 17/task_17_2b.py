@@ -43,7 +43,7 @@ from draw_network_graph import draw_topology
 
 def transform_topology(yaml_file):
     with open(yaml_file) as f:
-        data = yaml.load(f) 
+        data = yaml.safe_load(f) 
     #pprint(data)
     result = {}
     for d in data:
@@ -51,9 +51,6 @@ def transform_topology(yaml_file):
             tmp = tuple(data[d][e].items())[0]
             if tmp not in tuple(result.keys()):
                 result[(d, e)] = tmp
-
-        #result[(d, e)] = tuple(data[d][e].items())[0] for e in data[d] \
-        #                 if tuple(data[d][e].items())[0] not in tuple(result.keys())}
     return result
 
 
